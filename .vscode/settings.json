@@ -1,0 +1,13 @@
+{
+  "files.associations": {
+    "*.erb": "erb"
+  },
+  "[ruby]": {
+    "editor.formatOnSave": true
+  },
+  "[erb]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "aliariff.vscode-erb-beautify",
+  },
+  "rufo.useBundler": false,
+}
