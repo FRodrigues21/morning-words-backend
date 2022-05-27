@@ -11,10 +11,14 @@ class ApplicationController < ActionController::Base
   end
 
   def decoded_token
-    begin
-      JWT.decode(token, jwt_key, true, { :algorithm => "HS256" })
-    rescue JWT::DecodeError
-      [{ error: "Invalid Token" }]
+    if token.present?
+      begin
+        JWT.decode(token, jwt_key, true, { :algorithm => "HS256" })
+      rescue JWT::DecodeError
+        [{ error: "Invalid Token" }]
+      end
+    else
+      [{ error: "Missing Token" }]
     end
   end
 
@@ -23,7 +27,11 @@ class ApplicationController < ActionController::Base
   end
 
   def token
-    request.headers["Authorization"]
+    authorization_header = request.headers["Authorization"]
+
+    if authorization_header.present?
+      authorization_header.split(" ").last
+    end
   end
 
   def user_id
